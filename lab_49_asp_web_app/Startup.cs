@@ -18,6 +18,7 @@ namespace lab_49_asp_web_app
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +29,15 @@ namespace lab_49_asp_web_app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                        builder =>
+                        {
+                            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod();
+                        });
+            });
+
             services.AddDbContext<ToDoDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("ToDoDatabase")));
             services.AddControllers()
@@ -41,6 +51,7 @@ namespace lab_49_asp_web_app
             db.Database.EnsureCreated();
             //db.Database.EnsureDeleted();
 
+            app.UseCors(MyAllowSpecificOrigins);
 
             if (env.IsDevelopment())
             {
