@@ -18,10 +18,26 @@
     <script>
 
         window.addEventListener('load', event => {
+        let table = document.getElementById("table");
+
             fetch("https://localhost:44359/api/ToDos")
                 .then(res => res.json())
-                .then(res => console.log(res))
+                .then(todoArr => generateTable(table, todoArr, Object.keys(todoArr[0])))
+                
         })
+
+        const generateTable = (table, data, headers) => {
+            generateTableHead(table, headers);
+
+            for(let element of data) {
+                let row = table.insertRow();
+                for(key in element) {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(element[key]);
+                    cell.appendChild(text);
+                }
+            }
+        }
 
         const generateTableHead = (table, data) => {
             let thread = table.createTHead();
@@ -34,10 +50,6 @@
                 row.appendChild(th);
             }
         }
-
-        let table = document.getElementById("table");
-
-
     </script>
 </body>
 
