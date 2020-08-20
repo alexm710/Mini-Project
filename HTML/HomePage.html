@@ -9,7 +9,7 @@
     <h1>All Todos:</h1>
 
     <h3>Search:</h3>
-    <input type="text" placeholder="Search..."/>
+    <input type="text" placeholder="Search..." id="search"/>
 
     <table id="table">
         
@@ -50,6 +50,25 @@
                 row.appendChild(th);
             }
         }
+
+        var searchInput = document.getElementById("search");
+        searchInput.addEventListener("keyup", event => {
+            event.preventDefault();
+            if(event.keyCode === 13) {
+                fetch("https://localhost:44359/api/ToDos")
+                .then(res => res.json())
+                .then(todoArr => todoArr.filter(todo => todo.username === event.target.value))
+                .then(todoArr => generateTable(table, todoArr, Object.keys(todoArr[0])))
+            }
+        })
+
+        // const searchTodo = (event) => {
+        //     debugger
+        //     console.log(event)
+        //     if(event.keyCode === 13) {
+        //         console.log("enter")
+        //     }
+        // }
     </script>
 </body>
 
