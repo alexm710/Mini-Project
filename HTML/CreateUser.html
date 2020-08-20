@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<body>
+    <div class="container">
+        <h1>Create User</h1>
+        <div class="row">
+            <div class="col-sm-6">Input ID: </div>
+
+            <div class="col-sm-6">
+                <input id="UserId_input" type="text" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">Input Username: </div>
+
+            <div class="col-sm-6">
+                <input id="UserName_input" type="text" />
+            </div>
+        </div>
+        
+        <button onclick="createUser()">Create User</button>  
+    </div>
+    <script>
+
+        function createUser(){
+            fetch("https://localhost:44359/api/users")
+            .then(response => response.json())
+            .then(json => console.log(json));
+        }
+
+    </script>
+</body>
+</html>
