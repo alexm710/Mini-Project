@@ -34,7 +34,7 @@ namespace lab_49_asp_web_app
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                         builder =>
                         {
-                            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyMethod();
+                            builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                         });
             });
 
@@ -52,7 +52,7 @@ namespace lab_49_asp_web_app
             //db.Database.EnsureDeleted();
 
             app.UseCors(MyAllowSpecificOrigins);
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

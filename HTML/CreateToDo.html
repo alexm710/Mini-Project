@@ -3,7 +3,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
+    <title>Create Todo</title>
 </head>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -20,41 +20,52 @@
               <a class="nav-link" href="/HTML/HomePage.html">Home </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/HTML/CreateUser.html">Create Users <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/HTML/CreateUser.html">Create Users </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/HTML/CreateToDo.html">Create To Dos </a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/HTML/CreateToDo.html">Create To Dos <span class="sr-only">(current)</span></a>
               </li>
           </ul>
         </div>
       </nav>
-      
+
     <div class="container">
-        <h1>Create User</h1>
+        <h1>Create ToDo</h1>
        
         <div class="row">
-            <div class="col-sm-6">Input Username: </div>
+            <div class="col-sm-6">Input UserID: </div>
 
             <div class="col-sm-6">
-                <input id="UserName_input" type="text" />
+                <input id="UserID_input" type="text" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">Input To Do Name: </div>
+
+            <div class="col-sm-6">
+                <input id="ToDoName_input" type="text" />
             </div>
         </div>
         
-        <button onclick="createUser()">Create User</button>  
+        <button onclick="createToDo()">Create User</button>  
     </div>
     <script>
 
-        function createUser(){
-            var name = document.getElementById("UserName_input").value;
+        function createToDo(){
+            var UserID = document.getElementById("UserID_input").value;
+            var name = document.getElementById("ToDoName_input").value;
             console.log(name);
 
-            fetch("https://localhost:44359/api/users", {
+
+
+            fetch("https://localhost:44359/api/ToDos", {
             method: 'POST',
             headers: { Accept: 'application/json' , 'Content-Type': 'application/json'},
 
             body: JSON.stringify({
-
-                userName: name,
+                ToDoName : name,
+                UserId : UserID,
                 })
                 })
         }
