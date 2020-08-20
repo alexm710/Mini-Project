@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+</head>
+<body>
+    <h1>All Todos:</h1>
+
+    <h3>Search:</h3>
+    <input type="text" placeholder="Search..."/>
+
+    <table id="table">
+        
+    </table>
+
+    <script>
+
+        window.addEventListener('load', event => {
+            fetch("https://localhost:44359/api/ToDos")
+                .then(res => res.json())
+                .then(res => console.log(res))
+        })
+
+        const generateTableHead = (table, data) => {
+            let thread = table.createTHead();
+            let row = thread.insertRow();
+
+            for(let key of data) {
+                let th = document.createElement("th");
+                let text = document.createTextNode(key);
+                th.appendChild(text);
+                row.appendChild(th);
+            }
+        }
+
+        let table = document.getElementById("table");
+
+
+    </script>
+</body>
+
+    
+</html>
