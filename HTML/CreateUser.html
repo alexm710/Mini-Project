@@ -10,14 +10,7 @@
 <body>
     <div class="container">
         <h1>Create User</h1>
-        <div class="row">
-            <div class="col-sm-6">Input ID: </div>
-
-            <div class="col-sm-6">
-                <input id="UserId_input" type="text" />
-            </div>
-        </div>
-
+       
         <div class="row">
             <div class="col-sm-6">Input Username: </div>
 
@@ -31,9 +24,20 @@
     <script>
 
         function createUser(){
+            /*
             fetch("https://localhost:44359/api/users")
             .then(response => response.json())
             .then(json => console.log(json));
+            */
+
+            fetch("https://localhost:44359/api/users", {
+            method: 'POST',
+            headers: { Accept: 'application/json' , 'Content-Type': 'application/json'},
+
+            body: JSON.stringify({
+                userName: 'dean',
+                })
+                })
         }
 
     </script>
