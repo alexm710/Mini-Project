@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todos</title>
+</head>
+<body>
+    <h1>Your ToDos</h1>
+
+    <table id="table">
+        
+    </table>
+    <h2>This Web Page will list a specific Users ToDos</h2>
+    <button onclick="getData()">Click to see your ToDos</button>
+    <div id="data">No data yet</div>
+
+    <script>
+
+
+        fetch('https://localhost:44359/api/ToDos')
+            .then( response => response.json())
+            // Test to put data onto table
+            .then(function (data) {
+            console.log(data.standings[0].table[0])
+            const tables = data.standings[0].table
+            const html = tables.map((table, index) => {
+              return `<div class="table" id="${index}">
+                  <h3> Username: #${table.UserId} </h3>
+                  <h3> ToDos: ${table.item}  </h3>`
+            })
+              .join(" ");
+            console.log(html);
+            document.querySelector('.tables').innerHTML = html;
+        })
+        // code to run on button click
+        function getData(){
+            fetch('https://localhost:44359/api/ToDos')
+            .then( response => response.json())
+            .then( json =>  {
+                // put data on screen
+                document.getElementById('data').innerHTML=JSON.stringify(json)
+            });
+
+            body: JSON.stringify({
+                ToDoName: name,
+                UserId : UserID,
+
+            })
+        }
+
+    </script>
+</body>
+
+    
+</html>
