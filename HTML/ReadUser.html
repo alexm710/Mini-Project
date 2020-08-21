@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todos</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todos</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">ToDos</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/HomePage.html">Home </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/CreateUser.html">Create Users <span class="sr-only">(current)</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/CreateToDo.html">Create To Dos </a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/ReadUser.html">Chosen User <span class="sr-only">(current)</span></a>
-              </li>
-          </ul>
-        </div>
-      </nav>
-      
-    <h1>Your ToDos</h1>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ToDos</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <table id="table">
-        
-    </table>
-    <h2>This Web Page will list a specific Users ToDos</h2>
-    <button onclick="getData()">Click to see your ToDos</button>
-    <div id="data">No data yet</div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/HomePage.html">Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/CreateUser.html">Create Users <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/CreateToDo.html">Create To Dos </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/ReadUser.html">Chosen User <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 
-    <script>
+  <h1>Your ToDos</h1>
 
 
-        fetch('https://localhost:44359/api/ToDos')
-            .then( response => response.json())
-            // Test to put data onto table
-            .then(function (data) {
-            console.log(data.standings[0].table[0])
-            const tables = data.standings[0].table
-            const html = tables.map((table, index) => {
-              return `<div class="table" id="${index}">
-                  <h3> Username: #${table.UserId} </h3>
-                  <h3> ToDos: ${table.item}  </h3>`
-            })
-              .join(" ");
-            console.log(html);
-            document.querySelector('.tables').innerHTML = html;
+
+  <h2>This Web Page will list a specific Users ToDos</h2>
+  <button onclick="getData()">Click to see your ToDos</button>
+  <div id="data">No data yet</div>
+
+  <table style="width: 100%">
+    <tr>
+      <td>UserId</td>
+      <td>UserName</td>
+      <td>ToDos</td>
+    </tr>
+  </table>
+
+  <table style="width: 170%" class="table">
+   
+  </table>
+  <script>
+
+    function getData() {
+      fetch('https://localhost:44359/api/ToDos')
+        .then(response => response.json())
+        // Test to put data onto table
+        .then(function (data) {
+          const tables = data
+          console.log(tables)
+          const html = tables.map((table, index) => {
+            return `<tr><td>${index + 1}</td>
+                    <td>${table.username}</td>
+                    <td>${table.item}</td> </tr>
+        `
+          })
+            .join(" ");
+          console.log(html);
+          document.querySelector('.table').innerHTML = html;
         })
-        // code to run on button click
-        function getData(){
-            fetch('https://localhost:44359/api/ToDos')
-            .then( response => response.json())
-            .then( json =>  {
-                // put data on screen
-                document.getElementById('data').innerHTML=JSON.stringify(json)
-            });
-
-            body: JSON.stringify({
-                ToDoName: name,
-                UserId : UserID,
-
-            })
-        }
-
-    </script>
+    }
+  </script>
 </body>
 
-    
+
 </html>
