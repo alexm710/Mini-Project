@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos</title>
 
+    <link rel="stylesheet" href="web.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
@@ -42,16 +43,28 @@
     </table>
 
     <script>
+        let todos = [];
 
         window.addEventListener('load', event => {
         let table = document.getElementById("table");
 
             fetch("https://localhost:44359/api/ToDos")
                 .then(res => res.json())
-                .then(todoArr => generateTable(table, todoArr, Object.keys(todoArr[0])))
-                
+                .then(todoArr => todos.push([...todoArr]))
+                .then(todoArr => 
+                generateTable(table, todoArr, Object.keys(todoArr[0])))
+
         })
 
+        const objToMap = (obj) => {
+            console.log(obj)
+            let strMap = new Map();
+            for(let k of Object.keys(obj)) {
+                strMap.set[k, obj[k]]
+            }
+            console.log(strMap)
+        }
+        
         const generateTable = (table, data, headers) => {
             generateTableHead(table, headers);
 
